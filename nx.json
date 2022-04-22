@@ -1,6 +1,6 @@
 {
   "extends": "nx/presets/core.json",
-  "npmScope": "web-ui-toolkit",
+  "npmScope": "webview-ui-toolkit",
   "affected": {
     "defaultBase": "main"
   },

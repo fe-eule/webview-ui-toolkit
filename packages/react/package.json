@@ -1,5 +1,5 @@
 {
-  "name": "@web-ui-toolkit/react",
+  "name": "@webview-ui-toolkit/react",
   "version": "0.0.1",
   "scripts": {
     "component": "sh ./make-component.sh"

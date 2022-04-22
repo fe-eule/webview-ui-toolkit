@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "web-ui-toolkit": ["packages/react/src/index.ts"]
+      "webview-ui-toolkit": ["packages/react/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
