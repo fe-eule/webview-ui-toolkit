@@ -10,7 +10,6 @@ module.exports = defaultConfig => {
   };
   const esmOutputConfig = {
     preserveModules: true,
-    preserveModulesRoot: 'packages/ts-utils/src',
   };
   const formatOutputConfig = isEsm ? esmOutputConfig : {};
 
