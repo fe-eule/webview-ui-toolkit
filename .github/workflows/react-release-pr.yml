@@ -72,7 +72,7 @@ jobs:
           npm publish --tag rc.${{ steps.vars.outputs.github_short_sha }} --access=public
         working-directory: dist/packages/react
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Notify to PR Comment
