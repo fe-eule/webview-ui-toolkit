@@ -33,6 +33,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@webview-ui-toolkit'
 
       - name: Cache dependencies
         id: cache
@@ -62,9 +64,6 @@ jobs:
         id: vars
         run: |
           echo "::set-output name=github_short_sha::$(git rev-parse --short HEAD | cut -c1-7)"
-
-      - name: Add GiHub Package Token
-        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" > dist/packages/react/.npmrc
 
       - name: Deploy new Package
         run: |
