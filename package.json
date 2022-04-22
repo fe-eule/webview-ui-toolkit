@@ -1,8 +1,15 @@
 {
   "name": "webview-ui-toolkit",
   "version": "0.0.0",
-  "private": true,
+  "description": "UI toolkit library for WebView.",
+  "keywords": [
+    "webvivew",
+    "ui",
+    "component",
+    "react"
+  ],
   "license": "MIT",
+  "author": "@doong-jo",
   "workspaces": [
     "packages/**"
   ],
@@ -59,5 +66,9 @@
     "ts-jest": "27.1.4",
     "typescript": "~4.6.2",
     "url-loader": "^3.0.0"
+  },
+  "engines": {
+    "node": "16.x.x",
+    "npm": ">=8.x.x"
   }
 }

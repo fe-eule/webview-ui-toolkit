@@ -1,7 +1,26 @@
 {
   "name": "@webview-ui-toolkit/react",
   "version": "0.0.1",
-  "scripts": {
-    "component": "sh ./make-component.sh"
+  "description": "UI toolkit library for WebView using React",
+  "keywords": [
+    "webvivew",
+    "ui",
+    "component",
+    "react"
+  ],
+  "homepage": "https://reactjs.org/",
+  "bugs": {
+    "url": "https://github.com/facebook/react/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:doong-jo/webview-ui-toolkit.git",
+    "directory": "packages/react"
+  },
+  "license": "MIT",
+  "author": "@doong-jo",
+  "engines": {
+    "node": "16.x.x",
+    "npm": ">=8.x.x"
   }
 }
