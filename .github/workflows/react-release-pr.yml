@@ -47,7 +47,7 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GH_WEB_PACKAGES_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
 
       - name: Lint
         run: npx nx lint react
@@ -70,14 +70,14 @@ jobs:
           npm publish --tag rc.${{ steps.vars.outputs.github_short_sha }} --access=public
         working-directory: dist/packages/react
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_WEB_PACKAGES_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.GH_WEB_PACKAGES_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
 
       - name: Notify to PR Comment
         if: steps.extract-ref.outputs.result != 'refs/heads/master'
         uses: actions/github-script@v4
         with:
-          github-token: ${{ secrets.GH_WEB_PACKAGES_TOKEN }}
+          github-token: ${{ secrets.GH_PACKAGES_TOKEN }}
           script: |
             await github.issues.createComment({
               ...context.repo,

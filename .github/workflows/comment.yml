@@ -15,7 +15,7 @@ jobs:
       - name: Notify to PR Comment
         uses: actions/github-script@v4
         with:
-          github-token: ${{ secrets.GH_WEB_PACKAGES_TOKEN }}
+          github-token: ${{ secrets.GH_PACKAGES_TOKEN }}
           script: |
             await github.issues.createComment({
               ...context.repo,
@@ -26,7 +26,7 @@ jobs:
       - name: Dispatch
         uses: actions/github-script@v4
         with:
-          github-token: ${{ secrets.GH_WEB_PACKAGES_TOKEN }}
+          github-token: ${{ secrets.GH_PACKAGES_TOKEN }}
           script: |
             const issueNumber = context.issue.number
             await github.actions.createWorkflowDispatch({
