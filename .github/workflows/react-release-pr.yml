@@ -67,8 +67,8 @@ jobs:
         run: |
           VERSION=0.0.0-rc.${{ steps.vars.outputs.github_short_sha }}
           npm version $VERSION --no-git-tag-version
-          npm publish --tag rc.${{ steps.vars.outputs.github_short_sha }}
-        working-directory: packages/react
+          npm publish --tag rc.${{ steps.vars.outputs.github_short_sha }} --access=public
+        working-directory: dist/packages/react
         env:
           GITHUB_TOKEN: ${{ secrets.GH_WEB_PACKAGES_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.GH_WEB_PACKAGES_TOKEN }}
