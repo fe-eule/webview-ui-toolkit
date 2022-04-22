@@ -11,6 +11,9 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
       - name: Extract ref
         uses: actions/github-script@v4
@@ -26,10 +29,14 @@ jobs:
         with:
           ref: ${{ steps.extract-ref.outputs.result }}
 
+      - run: git config --global user.email "github-actions@example.com"
+      - run: git config --global user.name "GitHub Actions"
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
+          registry-url: 'https://npm.pkg.github.com'
 
       - name: Cache dependencies
         id: cache
@@ -40,20 +47,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: Add GiHub Package Token
-        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GH_PACKAGES_TOKEN }}" > ~/.npmrc
-
       - name: Install Dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
-
-      - name: Lint
-        run: npx nx lint react
-
-      - name: Test
-        run: npx nx test react
 
       - name: Build
         run: npx nx build react
@@ -70,8 +68,7 @@ jobs:
           npm publish --tag rc.${{ steps.vars.outputs.github_short_sha }} --access=public
         working-directory: dist/packages/react
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Notify to PR Comment
         if: steps.extract-ref.outputs.result != 'refs/heads/master'
