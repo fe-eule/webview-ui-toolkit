@@ -26,6 +26,9 @@ jobs:
         with:
           ref: ${{ steps.extract-ref.outputs.result }}
 
+      - run: git config --global user.email "github-actions@example.com"
+      - run: git config --global user.name "GitHub Actions"
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
@@ -62,7 +65,7 @@ jobs:
 
       - name: Add GiHub Package Token
         run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" > dist/packages/react/.npmrc
-        
+
       - name: Deploy new Package
         run: |
           VERSION=0.0.0-rc.${{ steps.vars.outputs.github_short_sha }}
@@ -70,8 +73,8 @@ jobs:
           npm publish --tag rc.${{ steps.vars.outputs.github_short_sha }} --access=public
         working-directory: dist/packages/react
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Notify to PR Comment
         if: steps.extract-ref.outputs.result != 'refs/heads/master'
