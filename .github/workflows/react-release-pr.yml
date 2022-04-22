@@ -41,7 +41,7 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Add GiHub Package Token
-        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GH_PACKAGES_TOKEN }}" > ~/.npmrc
+        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
 
       - name: Install Dependencies
         if: steps.cache.outputs.cache-hit != 'true'
