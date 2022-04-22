@@ -1,0 +1,26 @@
+{
+  "extends": "nx/presets/core.json",
+  "npmScope": "web-ui-toolkit",
+  "affected": {
+    "defaultBase": "main"
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/react"
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/nx-cloud",
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "e2e"],
+        "accessToken": "M2Q0OWMwNmYtZmJkYS00ZTM5LWFjZDctOTE5ZjA3NjMxMWU0fHJlYWQtd3JpdGU="
+      }
+    }
+  },
+  "generators": {
+    "@nrwl/react": {
+      "application": {
+        "babel": true
+      }
+    }
+  }
+}

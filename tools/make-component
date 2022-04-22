@@ -1,0 +1,3 @@
+#!/bin/bash
+
+npx nx generate @nrwl/react:component --name=$1 --project=react --export --pascalCaseDirectory --pascalCaseFiles --no-interactive
