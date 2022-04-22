@@ -50,12 +50,6 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
 
-      - name: Lint
-        run: npx nx lint react
-
-      - name: Test
-        run: npx nx test react
-
       - name: Build
         run: npx nx build react
 
