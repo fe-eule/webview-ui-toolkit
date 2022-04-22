@@ -1,0 +1,7 @@
+addAssignees: author
+
+skipKeywords:
+  - wip
+
+skipUsers:
+  - dependabot[bot]

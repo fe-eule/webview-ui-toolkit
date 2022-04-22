@@ -1,0 +1,86 @@
+name: Publish react in PR
+
+on:
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'Pull request number triggered'
+        required: false
+        default: ''
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Extract ref
+        uses: actions/github-script@v4
+        id: extract-ref
+        with:
+          script: |
+            const prNumber = '${{ github.event.inputs.pr_number }}'
+            return prNumber === '' ? context.ref : `refs/pull/${prNumber}/head`
+          result-encoding: string
+
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ steps.extract-ref.outputs.result }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Cache dependencies
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Add GiHub Package Token
+        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GH_PACKAGES_TOKEN }}" > ~/.npmrc
+
+      - name: Install Dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GH_WEB_PACKAGES_TOKEN }}
+
+      - name: Lint
+        run: npx nx lint react
+
+      - name: Test
+        run: npx nx test react
+
+      - name: Build
+        run: npx nx build react
+
+      - name: Set Variables
+        id: vars
+        run: |
+          echo "::set-output name=github_short_sha::$(git rev-parse --short HEAD | cut -c1-7)"
+
+      - name: Deploy new Package
+        run: |
+          VERSION=0.0.0-rc.${{ steps.vars.outputs.github_short_sha }}
+          npm version $VERSION --no-git-tag-version
+          npm publish --tag rc.${{ steps.vars.outputs.github_short_sha }}
+        working-directory: packages/react
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_WEB_PACKAGES_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GH_WEB_PACKAGES_TOKEN }}
+
+      - name: Notify to PR Comment
+        if: steps.extract-ref.outputs.result != 'refs/heads/master'
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{ secrets.GH_WEB_PACKAGES_TOKEN }}
+          script: |
+            await github.issues.createComment({
+              ...context.repo,
+              issue_number: ${{ github.event.inputs.pr_number }},
+              body: 'react package is published! Do `npm i @webview-ui-toolkit/react@rc.${{ steps.vars.outputs.github_short_sha }}`',
+            })

@@ -1,0 +1,42 @@
+github:
+  - .github/**/*
+
+config:
+  - .editorconfig
+  - .eslintrc.json
+  - .gitignore
+  - .nvmrc
+  - .prettierignore
+  - .prettierrc.js
+  - babel.config.json
+  - jest.config.js
+  - jest.preset.ts
+  - tsconfig.json
+  - tsconfig.lib.json
+  - tsconfig.spec.json
+  - tsconfig.base.json
+  - rollup.config.js
+  - project.json
+  - nx.json
+
+react:
+  - packages/react/**/*
+
+test:
+  - src/**/*.spec.ts
+  - src/**/*.spec.tsx
+  - src/**/*.test.ts
+  - src/**/*.test.tsx
+
+storybook:
+  - .storybook/**/*
+  - src/**/*.stories.tsx
+  - src/**/*.stories.mdx
+
+documentation:
+  - ./**/*.md
+
+dependencies:
+  - package.json
+  - package-lock.json
+  - ./**/*/package-lock.json

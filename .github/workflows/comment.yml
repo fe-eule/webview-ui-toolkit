@@ -1,0 +1,39 @@
+name: Comment
+
+on:
+  issue_comment:
+    types:
+      - created
+
+jobs:
+  publish:
+    if:
+      github.event.issue.pull_request && startsWith(github.event.comment.body, '/publish react')
+    name: Publish npm package
+    runs-on: self-hosted
+    steps:
+      - name: Notify to PR Comment
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{ secrets.GH_WEB_PACKAGES_TOKEN }}
+          script: |
+            await github.issues.createComment({
+              ...context.repo,
+              issue_number: context.issue.number,
+              body: 'Publishing react npm package...',
+            })
+
+      - name: Dispatch
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{ secrets.GH_WEB_PACKAGES_TOKEN }}
+          script: |
+            const issueNumber = context.issue.number
+            await github.actions.createWorkflowDispatch({
+              ...context.repo,
+              workflow_id: 'react-release-pr.yml',
+              ref: context.ref,
+              inputs: {
+                pr_number: `${issueNumber}`,
+              },
+            })
