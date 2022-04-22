@@ -8,6 +8,10 @@
     "component",
     "react"
   ],
+  "homepage": "https://github.com/doong-jo/webview-ui-toolkit#readme",
+  "bugs": {
+    "url": "https://github.com/doong-jo/webview-ui-toolkit/issues"
+  },
   "license": "MIT",
   "author": "@doong-jo",
   "workspaces": [
