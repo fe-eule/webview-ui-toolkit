@@ -10,7 +10,7 @@ jobs:
     if:
       github.event.issue.pull_request && startsWith(github.event.comment.body, '/publish react')
     name: Publish npm package
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: Notify to PR Comment
         uses: actions/github-script@v4
