@@ -40,9 +40,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: Add GiHub Package Token
-        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
-
       - name: Install Dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
@@ -63,6 +60,9 @@ jobs:
         run: |
           echo "::set-output name=github_short_sha::$(git rev-parse --short HEAD | cut -c1-7)"
 
+      - name: Add GiHub Package Token
+        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" > dist/packages/react/.npmrc
+        
       - name: Deploy new Package
         run: |
           VERSION=0.0.0-rc.${{ steps.vars.outputs.github_short_sha }}
