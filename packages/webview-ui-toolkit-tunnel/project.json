@@ -1,0 +1,45 @@
+{
+  "root": "packages/webview-ui-toolkit-tunnel",
+  "sourceRoot": "packages/webview-ui-toolkit-tunnel/src",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:swc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/webview-ui-toolkit-tunnel",
+        "main": "packages/webview-ui-toolkit-tunnel/src/index.ts",
+        "tsConfig": "packages/webview-ui-toolkit-tunnel/tsconfig.lib.json",
+        "assets": ["packages/webview-ui-toolkit-tunnel/*.md"]
+      }
+    },
+    "publish": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "node tools/scripts/publish.mjs webview-ui-toolkit-tunnel {args.ver} {args.tag}",
+        "cwd": "dist/packages/webview-ui-toolkit-tunnel"
+      },
+      "dependsOn": [
+        {
+          "projects": "self",
+          "target": "build"
+        }
+      ]
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/webview-ui-toolkit-tunnel/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/packages/webview-ui-toolkit-tunnel"],
+      "options": {
+        "jestConfig": "packages/webview-ui-toolkit-tunnel/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

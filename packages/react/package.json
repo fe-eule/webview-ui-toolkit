@@ -1,7 +1,7 @@
 {
   "name": "@doong-jo/react-webview-ui-toolkit",
   "version": "0.0.2",
-  "description": "UI toolkit library for WebView using React",
+  "description": "React components and hooks library for WebView.",
   "keywords": [
     "webvivew",
     "ui",

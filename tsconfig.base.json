@@ -15,6 +15,10 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@webview-ui-toolkit/webview-ui-toolkit-tunnel": [
+        "packages/webview-ui-toolkit-tunnel/src/index.ts"
+      ],
+      "doong-jo": ["packages/webview-ui-toolkit-tunnel/src/index.ts"],
       "webview-ui-toolkit": ["packages/react/src/index.ts"]
     }
   },
