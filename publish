@@ -1,0 +1,5 @@
+npm config set registry https://registry.npmjs.org/
+(cd dist/packages/react ;  npm publish --access public)
+
+npm config set registry https://npm.pkg.github.com/
+(cd dist/packages/react ;  npm publish --access public)

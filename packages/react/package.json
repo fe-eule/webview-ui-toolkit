@@ -26,8 +26,5 @@
   "engines": {
     "node": "16.x.x",
     "npm": ">=8.x.x"
-  },
-  "publishConfig": {
-    "registry":"https://npm.pkg.github.com"
   }
 }
