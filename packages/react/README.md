@@ -1,4 +1,4 @@
-# @webview-ui-toolkit/react
+# react-webview-ui-toolkit
 
 React component or hook library for WebView.
 
