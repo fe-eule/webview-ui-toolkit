@@ -36,4 +36,8 @@ try {
 }
 
 // Execute "npm publish" to publish
+execSync('npm config set registry https://npm.pkg.github.com/');
+execSync(`npm publish --access public`);
+
+execSync('npm config set registry https://registry.npmjs.org/');
 execSync(`npm publish --access public`);
