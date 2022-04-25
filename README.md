@@ -27,4 +27,3 @@ UI toolkit library for Native-like Experience with WebView.
 ## Documentation
 
 - [react-webview-ui-toolkit](https://github.com/doong-jo/webview-ui-toolkit/blob/main/packages/react/README.md#webview-ui-toolkitreact): React components and hooks.
-- webview-ui-toolkit-tunnel: Interfaces that can send and receive data between Native and WebView.
